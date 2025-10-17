@@ -3,8 +3,18 @@ DROP TABLE dogs;
 DROP TABLE owners;
 DROP TABLE breeds;
 
+CREATE SEQUENCE owners_id_incrementor
+AS INT
+INCREMENT BY 1
+NO CYCLE;
+
+CREATE SEQUENCE dogs_id_incrementor
+AS INT
+INCREMENT BY 1
+NO CYCLE;
+
 CREATE TABLE owners(
-	owner_id INTEGER PRIMARY KEY,
+	owner_id INTEGER PRIMARY KEY DEFAULT nextval('owners_id_incrementor'),
 	FIO VARCHAR(30) NOT NULL,
 	address VARCHAR(40) NOT NULL,
 	phone CHAR(12) NOT NULL
@@ -16,7 +26,7 @@ CREATE TABLE breeds(
 );
 
 CREATE TABLE dogs(
-	id INTEGER PRIMARY KEY,
+	id INTEGER PRIMARY KEY DEFAULT nextval('dogs_id_incrementor'),
 	nickname VARCHAR(30) NOT NULL,
 	dog_owner INTEGER REFERENCES owners(owner_id),
 	birthday DATE NOT NULL,
